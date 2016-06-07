@@ -34,6 +34,9 @@ public class MainApp extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
+
+		System.out.println("Say hi to intellij, from home..");
+
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("DataTraffic");
 
