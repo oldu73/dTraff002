@@ -1,0 +1,50 @@
+
+- Valeur du filtre quand le champs est laissé vide
+(0 ? ... ou disable bouton OK ? ... a checker, pour l'instant c'est pas terrible !)
+
+- filter passé en param (pour new/edit), ne sert à rien ??
+
+- selected filter in blue after edit
+
+- double click on filter open edit box
+
+- repackager l'application
+trouver règle pour nomenclature parce que getFilterEditDialogBodyFxmlFileName... c'est un peu lourd ;-)
+
+- Quand on est du côté Java (de la force ;-) refactor VarChar en String
+Voir aussi cohérence de nommage entre Double vs Decimal
+
+- Bouton "template" quand un filtre est sélectionné en recrée un nouveau (edit box)
+avec les champs (pré)remplis avec les valeurs du filtre sélectionné
+
+- Gestion des préférences (log level, enable output tableview at which log level)
+
+- Vue Console dans un tabpan, pouvoir choisir dans menu Window -> Show View -> Console
+
+- test unitaire
+
+- Intellij (crack full version??)
+
+- GitHub
+
+- utilisation du debugger (tuto)
+
+- Tuto utilisation de eclipse/intellij
+
+- Moyen visuel (marquage en couleur) de différencier les types non gérés (genre TIME, en ce moment, 2 juin 2016)
+et qui sont donc, par défaut, considéré/traité comme un String
+
+- Javadoc
+
+- Annotation
+
+- Intellij UML
+
+- Gestion de dépendance (Maven.. ?)
+
+- Injection de dépendance (Spring.. ?)
+
+- Intellij packaging (include tools.jar)
+
+- keyboard shortcut
+
