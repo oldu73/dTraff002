@@ -1,0 +1,25 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="dTraff002">
+    <output-path>$PROJECT_DIR$/out/artifacts/dTraff002</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="appClass" value="ch.stageconcept.datatraffic.MainApp" />
+        <option name="description" value="" />
+        <option name="htmlParamFile" value="" />
+        <option name="nativeBundle" value="exe" />
+        <option name="paramFile" value="" />
+        <option name="title" value="" />
+        <option name="vendor" value="" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="dTraff002.jar">
+        <element id="module-output" name="dTraff002" />
+        <element id="library" level="project" name="Maven: log4j:log4j:1.2.12" />
+        <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.39" />
+        <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/config.properties" />
+        <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/log4j.properties" />
+      </element>
+    </root>
+  </artifact>
+</component>
