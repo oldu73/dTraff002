@@ -1,4 +1,4 @@
-package ch.stageconcept.datatraffic.view;
+package ch.stageconcept.datatraffic.filter.editDialog.view;
 
 import java.time.LocalDateTime;
 
@@ -10,7 +10,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 
-public class DTVFEditDialogDateTimeController {
+public class DateTimeController {
 
 	private LocalDateTime value;
 

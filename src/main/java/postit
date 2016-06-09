@@ -3,6 +3,8 @@
 Must
 ###
 
+- New Filter Init Date/Time with value @Now
+
 - Valeur du filtre quand le champs est laissé vide
 (0 ? ... ou disable bouton OK ? ... a checker, pour l'instant c'est pas terrible !)
 

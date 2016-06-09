@@ -1,10 +1,10 @@
 package ch.stageconcept.datatraffic.util.type;
 
 import java.time.LocalDateTime;
-import ch.stageconcept.datatraffic.view.DTVFEditDialogDateTimeController;
-import ch.stageconcept.datatraffic.view.DTVFEditDialogDecimalController;
-import ch.stageconcept.datatraffic.view.DTVFEditDialogIntController;
-import ch.stageconcept.datatraffic.view.DTVFEditDialogVarCharController;
+import ch.stageconcept.datatraffic.filter.editDialog.view.DateTimeController;
+import ch.stageconcept.datatraffic.filter.editDialog.view.DecimalController;
+import ch.stageconcept.datatraffic.filter.editDialog.view.IntController;
+import ch.stageconcept.datatraffic.filter.editDialog.view.VarCharController;
 
 public enum MasterSingleton {
 
@@ -18,15 +18,15 @@ public enum MasterSingleton {
 
 	// ===
 
-	public static final String FILTER_FXML_FILE_BASE_DIR = "view/";
+	public static final String FILTER_FXML_FILE_BASE_DIR = "filter/editDialog/view/";
 
 	private static final String MEMBER_INT_PRIMITIVE = "int";
 	private static final String MEMBER_INTEGER_TYPE = "Integer";
-	private static final String INT_FILTER_FXML_FILE = FILTER_FXML_FILE_BASE_DIR + "DTVFEditDialogInt.fxml";
+	private static final String INT_FILTER_FXML_FILE = FILTER_FXML_FILE_BASE_DIR + "Int.fxml";
 
 	private static final String MEMBER_DOUBLE_PRIMITIVE = "double";
 	private static final String MEMBER_DOUBLE_TYPE = "Double";
-	private static final String DOUBLE_FILTER_FXML_FILE = FILTER_FXML_FILE_BASE_DIR + "DTVFEditDialogDecimal.fxml";
+	private static final String DOUBLE_FILTER_FXML_FILE = FILTER_FXML_FILE_BASE_DIR + "Decimal.fxml";
 
 	private static final String MEMBER_OBJECT_PRIMITIVE = "Object";
 	private static final String MEMBER_OBJECT_TYPE = MEMBER_OBJECT_PRIMITIVE;
@@ -34,17 +34,17 @@ public enum MasterSingleton {
 	private static final String MEMBER_OBJECT_LOCALDATETIME = "LocalDateTime";
 	private static final String IMPORT_LITTERAL_LOCALDATETIME = "java.time.LocalDateTime";
 	private static final String LOCALDATETIME_FILTER_FXML_FILE = FILTER_FXML_FILE_BASE_DIR
-			+ "DTVFEditDialogDateTime.fxml";
+			+ "DateTime.fxml";
 
 	private static final String MEMBER_STRING_PRIMITIVE = "String";
 	private static final String MEMBER_STRING_TYPE = MEMBER_STRING_PRIMITIVE;
-	private static final String STRING_FILTER_FXML_FILE = FILTER_FXML_FILE_BASE_DIR + "DTVFEditDialogVarChar.fxml";
+	private static final String STRING_FILTER_FXML_FILE = FILTER_FXML_FILE_BASE_DIR + "VarChar.fxml";
 
 	// Data
-	private final Data<DTVFEditDialogIntController, Integer> dataInt;
-	private final Data<DTVFEditDialogDecimalController, Double> dataDecimal;
-	private final Data<DTVFEditDialogDateTimeController, LocalDateTime> dataDateTime;
-	private final Data<DTVFEditDialogVarCharController, String> dataString;
+	private final Data<IntController, Integer> dataInt;
+	private final Data<DecimalController, Double> dataDecimal;
+	private final Data<DateTimeController, LocalDateTime> dataDateTime;
+	private final Data<VarCharController, String> dataString;
 
 	private final DefaultHashMap<String, Data<?, ?>> dataHashMap;
 

@@ -6,7 +6,7 @@ import java.io.IOException;
 import ch.stageconcept.datatraffic.MainApp;
 import ch.stageconcept.datatraffic.filter.table.model.DynTableFilter;
 import ch.stageconcept.datatraffic.dbToDynTableView.util.LoggTableViewSelCell;
-import ch.stageconcept.datatraffic.view.DynTableViewFilterEditDialogController;
+import ch.stageconcept.datatraffic.filter.editDialog.view.ContainerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -27,7 +27,7 @@ public class DynTableFilterController {
 	// Reference to the main application.
 	private MainApp mainApp;
 
-	private DynTableViewFilterEditDialogController filterEditDialogController;
+	private ContainerController filterEditDialogController;
 	
 	@SuppressWarnings("unused")
 	private LoggTableViewSelCell loggTableViewSelCell;
@@ -168,7 +168,7 @@ public class DynTableFilterController {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/DynTableViewFilterEditDialog.fxml"));
+			loader.setLocation(MainApp.class.getResource("filter/editDialog/view/Container.fxml"));
 			AnchorPane anchorPane = (AnchorPane) loader.load();
 
 			// Create the dialog Stage.

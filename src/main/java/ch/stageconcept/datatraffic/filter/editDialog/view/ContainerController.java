@@ -1,4 +1,4 @@
-package ch.stageconcept.datatraffic.view;
+package ch.stageconcept.datatraffic.filter.editDialog.view;
 
 import java.io.IOException;
 import java.util.List;
@@ -17,7 +17,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
-public class DynTableViewFilterEditDialogController {
+public class ContainerController {
 
 	@FXML
 	private AnchorPane bodyAnchorPane;
