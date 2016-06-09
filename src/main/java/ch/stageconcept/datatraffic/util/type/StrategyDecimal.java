@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import ch.stageconcept.datatraffic.model.DynTableViewFilter;
+import ch.stageconcept.datatraffic.filter.table.model.DynTableFilter;
 import ch.stageconcept.datatraffic.view.DTVFEditDialogDecimalController;
 import javafx.scene.control.ComboBox;
 
@@ -16,13 +16,13 @@ public class StrategyDecimal implements Strategy<DTVFEditDialogDecimalController
 	}
 
 	@Override
-	public void setControllerFilterValue(DynTableViewFilter<?> selectedDynTableViewFilter, DTVFEditDialogDecimalController filterController) {
-		filterController.setFilterValue((Double) selectedDynTableViewFilter.getDbColumnValue());
+	public void setControllerFilterValue(DynTableFilter<?> selectedDynTableFilter, DTVFEditDialogDecimalController filterController) {
+		filterController.setFilterValue((Double) selectedDynTableFilter.getDbColumnValue());
 	}
 
 	@Override
-	public DynTableViewFilter<Double> createDynTableViewFilter(ComboBox<DynTableViewFilter<?>> columnNameTypeComboBox, DTVFEditDialogDecimalController filterController) {
-		return new DynTableViewFilter<Double>(columnNameTypeComboBox.getValue().getDbColumnName(),
+	public DynTableFilter<Double> createDynTableViewFilter(ComboBox<DynTableFilter<?>> columnNameTypeComboBox, DTVFEditDialogDecimalController filterController) {
+		return new DynTableFilter<Double>(columnNameTypeComboBox.getValue().getDbColumnName(),
 				columnNameTypeComboBox.getValue().getDbColumnType(), filterController.getValue());
 	}
 

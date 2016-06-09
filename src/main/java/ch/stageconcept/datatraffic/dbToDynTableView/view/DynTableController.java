@@ -1,4 +1,4 @@
-package ch.stageconcept.datatraffic.view;
+package ch.stageconcept.datatraffic.dbToDynTableView.view;
 
 import static ch.stageconcept.datatraffic.util.LoggMode.*;
 
@@ -7,12 +7,13 @@ import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import ch.stageconcept.datatraffic.model.DbToDynTableView;
-import ch.stageconcept.datatraffic.util.LoggTableViewSelCell;
+import ch.stageconcept.datatraffic.dbToDynTableView.model.DynTable;
+import ch.stageconcept.datatraffic.dbToDynTableView.util.LoggTableViewSelCell;
+import ch.stageconcept.datatraffic.view.RootLayoutController;
 import javafx.fxml.FXML;
 import javafx.scene.layout.StackPane;
 
-public class DynTableViewController {
+public class DynTableController {
 
 	// DB
 	private final String DB_DRIVER = "com.mysql.jdbc.Driver";
@@ -28,7 +29,7 @@ public class DynTableViewController {
 	private final String CLASS_NAME = "DynClass00x";
 
 	// "main"
-	private DbToDynTableView dbToView;
+	private DynTable dbToView;
 	@SuppressWarnings("unused")
 	private LoggTableViewSelCell loggTableViewSelCell;
 
@@ -39,7 +40,7 @@ public class DynTableViewController {
 	public void initialize() {
 		// TableView
 		try {
-			dbToView = new DbToDynTableView(DB_DRIVER, DB_URL, DB_USER, DB_PASS, DB_SQL, CLASS_NAME, CLASS_PATH,
+			dbToView = new DynTable(DB_DRIVER, DB_URL, DB_USER, DB_PASS, DB_SQL, CLASS_NAME, CLASS_PATH,
 					CLASS_FILE_EXTENSION, false);
 		} catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException
 				| NoSuchMethodException | IllegalArgumentException | InvocationTargetException | IOException ex) {
@@ -53,7 +54,7 @@ public class DynTableViewController {
 		stackPane.getChildren().add(dbToView);
 	}
 
-	public DbToDynTableView getDynTableView() {
+	public DynTable getDynTableView() {
 		return dbToView;
 	}
 

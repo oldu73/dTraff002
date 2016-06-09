@@ -3,7 +3,7 @@ package ch.stageconcept.datatraffic.view;
 import java.io.IOException;
 import java.util.List;
 import ch.stageconcept.datatraffic.MainApp;
-import ch.stageconcept.datatraffic.model.DynTableViewFilter;
+import ch.stageconcept.datatraffic.filter.table.model.DynTableFilter;
 import ch.stageconcept.datatraffic.util.Pair;
 import ch.stageconcept.datatraffic.util.type.MasterSingleton;
 import javafx.collections.FXCollections;
@@ -23,20 +23,20 @@ public class DynTableViewFilterEditDialogController {
 	private AnchorPane bodyAnchorPane;
 
 	private boolean okClicked = false;
-	private DynTableViewFilter<?> dynTableViewFilter;
+	private DynTableFilter<?> dynTableFilter;
 
 	@FXML
-	private ComboBox<DynTableViewFilter<?>> columnNameTypeComboBox;
+	private ComboBox<DynTableFilter<?>> columnNameTypeComboBox;
 
 	@FXML
 	private Button okButton;
 
-	private ObservableList<DynTableViewFilter<?>> columnNameTypeComboBoxData = FXCollections.observableArrayList();
+	private ObservableList<DynTableFilter<?>> columnNameTypeComboBoxData = FXCollections.observableArrayList();
 
 	private Stage dialogStage;
 
-	public void setDynTableViewFilter(DynTableViewFilter<?> tempFilter) {
-		this.dynTableViewFilter = tempFilter;
+	public void setDynTableFilter(DynTableFilter<?> tempFilter) {
+		this.dynTableFilter = tempFilter;
 	}
 
 	@FXML
@@ -48,9 +48,9 @@ public class DynTableViewFilterEditDialogController {
 
 		// Define rendering of the list of values in ComboBox drop down.
 		columnNameTypeComboBox.setCellFactory((comboBox) -> {
-			return new ListCell<DynTableViewFilter<?>>() {
+			return new ListCell<DynTableFilter<?>>() {
 				@Override
-				protected void updateItem(DynTableViewFilter<?> item, boolean empty) {
+				protected void updateItem(DynTableFilter<?> item, boolean empty) {
 					super.updateItem(item, empty);
 
 					if (item == null || empty) {
@@ -63,23 +63,23 @@ public class DynTableViewFilterEditDialogController {
 		});
 
 		// Define rendering of selected value shown in ComboBox.
-		columnNameTypeComboBox.setConverter(new StringConverter<DynTableViewFilter<?>>() {
+		columnNameTypeComboBox.setConverter(new StringConverter<DynTableFilter<?>>() {
 			@Override
-			public String toString(DynTableViewFilter<?> dynTableViewFilterValue) {
-				if (dynTableViewFilterValue == null) {
+			public String toString(DynTableFilter<?> dynTableFilterValue) {
+				if (dynTableFilterValue == null) {
 					return null;
 				} else {
-					if (dynTableViewFilterValue.getDbColumnName() == null
-							&& dynTableViewFilterValue.getDbColumnType() == null) {
+					if (dynTableFilterValue.getDbColumnName() == null
+							&& dynTableFilterValue.getDbColumnType() == null) {
 						return "Please select...";
 					}
-					return dynTableViewFilterValue.getDbColumnName() + " - "
-							+ dynTableViewFilterValue.getDbColumnType();
+					return dynTableFilterValue.getDbColumnName() + " - "
+							+ dynTableFilterValue.getDbColumnType();
 				}
 			}
 
 			@Override
-			public DynTableViewFilter<?> fromString(String dynTableViewFilterSelectString) {
+			public DynTableFilter<?> fromString(String dynTableViewFilterSelectString) {
 				return null; // No conversion fromString needed.
 			}
 		});
@@ -87,7 +87,7 @@ public class DynTableViewFilterEditDialogController {
 		// Handle ComboBox event.
 		columnNameTypeComboBox.setOnAction((event) -> {
 
-			DynTableViewFilter<?> selectedDynTableViewFilterValue = columnNameTypeComboBox.getSelectionModel()
+			DynTableFilter<?> selectedDynTableFilterValue = columnNameTypeComboBox.getSelectionModel()
 					.getSelectedItem();
 
 			/*
@@ -95,18 +95,18 @@ public class DynTableViewFilterEditDialogController {
 			 * selectedDynTableViewFilter.toString() + ")");
 			 */
 
-			initEditDialogBodyLayout(selectedDynTableViewFilterValue);
+			initEditDialogBodyLayout(selectedDynTableFilterValue);
 
 			okButton.setDisable(false);
 		});
 	}
 
-	private void initEditDialogBodyLayout(DynTableViewFilter<?> selectedDynTableViewFilter) {
+	private void initEditDialogBodyLayout(DynTableFilter<?> selectedDynTableFilter) {
 		try {
 
 			String resourceString;
 
-			resourceString = MasterSingleton.INSTANCE.getDataHashMap().get(selectedDynTableViewFilter.getDbColumnType())
+			resourceString = MasterSingleton.INSTANCE.getDataHashMap().get(selectedDynTableFilter.getDbColumnType())
 					.getFilterEditDialogBodyFxmlFileName();
 
 			// Load layout from fxml file.
@@ -114,12 +114,12 @@ public class DynTableViewFilterEditDialogController {
 			loader.setLocation(MainApp.class.getResource(resourceString));
 			AnchorPane anchorPane = (AnchorPane) loader.load();
 
-			MasterSingleton.INSTANCE.getDataHashMap().get(selectedDynTableViewFilter.getDbColumnType())
+			MasterSingleton.INSTANCE.getDataHashMap().get(selectedDynTableFilter.getDbColumnType())
 					.setFilterEditDialogDataController(loader.getController());
 
 			try {
-				MasterSingleton.INSTANCE.getDataHashMap().get(selectedDynTableViewFilter.getDbColumnType())
-						.setControllerFilterValue(selectedDynTableViewFilter);
+				MasterSingleton.INSTANCE.getDataHashMap().get(selectedDynTableFilter.getDbColumnType())
+						.setControllerFilterValue(selectedDynTableFilter);
 
 				okButton.setDisable(false);
 
@@ -158,9 +158,9 @@ public class DynTableViewFilterEditDialogController {
 	 */
 	@FXML
 	private void handleOk() {
-		// dynTableViewFilter.setDynTableViewFilterValue(columnNameTypeComboBox.getValue());
+		// dynTableFilter.setDynTableViewFilterValue(columnNameTypeComboBox.getValue());
 
-		dynTableViewFilter = MasterSingleton.INSTANCE.getDataHashMap()
+		dynTableFilter = MasterSingleton.INSTANCE.getDataHashMap()
 				.get(columnNameTypeComboBox.getValue().getDbColumnType())
 				.createDynTableViewFilter(columnNameTypeComboBox);
 
@@ -168,8 +168,8 @@ public class DynTableViewFilterEditDialogController {
 		dialogStage.close();
 	}
 
-	public DynTableViewFilter<?> getdynTableViewFilter() {
-		return dynTableViewFilter;
+	public DynTableFilter<?> getdynTableViewFilter() {
+		return dynTableFilter;
 	}
 
 	/**
@@ -200,10 +200,10 @@ public class DynTableViewFilterEditDialogController {
 		columnNameTypeComboBox.getItems().clear();
 		// Init ComboBox items.
 		columnNameTypeComboBox.setItems(columnNameTypeComboBoxData);
-		columnNameTypeComboBox.setValue(this.dynTableViewFilter);
+		columnNameTypeComboBox.setValue(this.dynTableFilter);
 
-		if (this.dynTableViewFilter.getDbColumnName() != null && this.dynTableViewFilter.getDbColumnType() != null) {
-			initEditDialogBodyLayout(this.dynTableViewFilter);
+		if (this.dynTableFilter.getDbColumnName() != null && this.dynTableFilter.getDbColumnType() != null) {
+			initEditDialogBodyLayout(this.dynTableFilter);
 		}
 
 	}

@@ -1,11 +1,12 @@
-package ch.stageconcept.datatraffic.view;
+package ch.stageconcept.datatraffic.filter.table.view;
 
 import static ch.stageconcept.datatraffic.util.LoggMode.*;
 
 import java.io.IOException;
 import ch.stageconcept.datatraffic.MainApp;
-import ch.stageconcept.datatraffic.model.DynTableViewFilter;
-import ch.stageconcept.datatraffic.util.LoggTableViewSelCell;
+import ch.stageconcept.datatraffic.filter.table.model.DynTableFilter;
+import ch.stageconcept.datatraffic.dbToDynTableView.util.LoggTableViewSelCell;
+import ch.stageconcept.datatraffic.view.DynTableViewFilterEditDialogController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -21,7 +22,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 
-public class DynTableViewFilterController {
+public class DynTableFilterController {
 
 	// Reference to the main application.
 	private MainApp mainApp;
@@ -32,21 +33,21 @@ public class DynTableViewFilterController {
 	private LoggTableViewSelCell loggTableViewSelCell;
 
 	/**
-	 * The data as an observable list of DynTableViewFilter.
+	 * The data as an observable list of DynTableFilter.
 	 */
-	private ObservableList<DynTableViewFilter<?>> dynTableViewFilterData = FXCollections.observableArrayList();
+	private ObservableList<DynTableFilter<?>> dynTableFilterData = FXCollections.observableArrayList();
 
 	@FXML
-	private TableView<DynTableViewFilter<?>> dynTableViewFilterTable;
+	private TableView<DynTableFilter<?>> dynTableViewFilterTable;
 
 	@FXML
-	private TableColumn<DynTableViewFilter<?>, String> dbColumnNameColumn;
+	private TableColumn<DynTableFilter<?>, String> dbColumnNameColumn;
 
 	@FXML
-	private TableColumn<DynTableViewFilter<?>, String> dbColumnTypeColumn;
+	private TableColumn<DynTableFilter<?>, String> dbColumnTypeColumn;
 
 	@FXML
-	private TableColumn<DynTableViewFilter<?>, ?> dbColumnValueColumn;
+	private TableColumn<DynTableFilter<?>, ?> dbColumnValueColumn;
 
 	@FXML
 	private Button editButton;
@@ -79,7 +80,7 @@ public class DynTableViewFilterController {
 		dbColumnValueColumn.setCellValueFactory(new PropertyValueFactory<>("dbColumnValue"));
 
 		// Add observable list data to the table
-		dynTableViewFilterTable.setItems(dynTableViewFilterData);
+		dynTableViewFilterTable.setItems(dynTableFilterData);
 		
 		if (ENABLE_LOGG_TABLEVIEW_SELECTED_CELL) {
 			loggTableViewSelCell = new LoggTableViewSelCell(dynTableViewFilterTable);
@@ -104,11 +105,11 @@ public class DynTableViewFilterController {
 	@FXML
 	private void handleNewDynTableViewFilter() {
 
-		DynTableViewFilter<?> tempFilter = new DynTableViewFilter<>();
+		DynTableFilter<?> tempFilter = new DynTableFilter<>();
 
 		boolean okClicked = showDynTableViewFilterEditDialog(tempFilter, "New Filter");
 		if (okClicked) {
-			dynTableViewFilterData.add(filterEditDialogController.getdynTableViewFilter());
+			dynTableFilterData.add(filterEditDialogController.getdynTableViewFilter());
 		}
 
 	}
@@ -120,12 +121,12 @@ public class DynTableViewFilterController {
 	@FXML
 	private void handleEditDynTableViewFilter() {
 
-		DynTableViewFilter<?> tempFilter = dynTableViewFilterTable.getSelectionModel().getSelectedItem();
+		DynTableFilter<?> tempFilter = dynTableViewFilterTable.getSelectionModel().getSelectedItem();
 
 		if (tempFilter != null) {
 			boolean okClicked = showDynTableViewFilterEditDialog(tempFilter, "Edit Filter");
 			if (okClicked) {
-				dynTableViewFilterData.set(dynTableViewFilterData.indexOf(tempFilter),
+				dynTableFilterData.set(dynTableFilterData.indexOf(tempFilter),
 						filterEditDialogController.getdynTableViewFilter());
 
 				// TODO: Selected row in blue?!
@@ -163,7 +164,7 @@ public class DynTableViewFilterController {
 		alert.showAndWait();
 	}
 
-	private boolean showDynTableViewFilterEditDialog(DynTableViewFilter<?> tempFilter, String title) {
+	private boolean showDynTableViewFilterEditDialog(DynTableFilter<?> tempFilter, String title) {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
@@ -181,9 +182,9 @@ public class DynTableViewFilterController {
 
 			filterEditDialogController = loader.getController();
 			filterEditDialogController.setDialogStage(dialogStage);
-			filterEditDialogController.setDynTableViewFilter(tempFilter);
+			filterEditDialogController.setDynTableFilter(tempFilter);
 			filterEditDialogController.populateColumnNameTypeComboBox(
-					mainApp.getDynTableViewController().getDynTableView().dbGetColumnsNamesTypesPairList());
+					mainApp.getDynTableController().getDynTableView().dbGetColumnsNamesTypesPairList());
 
 			// Show the dialog and wait until the user closes it
 			dialogStage.showAndWait();

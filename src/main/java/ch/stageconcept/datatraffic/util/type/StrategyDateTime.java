@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import ch.stageconcept.datatraffic.model.DynTableViewFilter;
+import ch.stageconcept.datatraffic.filter.table.model.DynTableFilter;
 import ch.stageconcept.datatraffic.view.DTVFEditDialogDateTimeController;
 import javafx.scene.control.ComboBox;
 
@@ -17,14 +17,14 @@ public class StrategyDateTime implements Strategy<DTVFEditDialogDateTimeControll
 	}
 
 	@Override
-	public void setControllerFilterValue(DynTableViewFilter<?> selectedDynTableViewFilter, DTVFEditDialogDateTimeController filterController) {
-		filterController.setFilterValue((LocalDateTime) selectedDynTableViewFilter.getDbColumnValue());
+	public void setControllerFilterValue(DynTableFilter<?> selectedDynTableFilter, DTVFEditDialogDateTimeController filterController) {
+		filterController.setFilterValue((LocalDateTime) selectedDynTableFilter.getDbColumnValue());
 	}
 
 	@Override
-	public DynTableViewFilter<LocalDateTime> createDynTableViewFilter(
-			ComboBox<DynTableViewFilter<?>> columnNameTypeComboBox, DTVFEditDialogDateTimeController filterController) {
-		return new DynTableViewFilter<LocalDateTime>(columnNameTypeComboBox.getValue().getDbColumnName(),
+	public DynTableFilter<LocalDateTime> createDynTableViewFilter(
+			ComboBox<DynTableFilter<?>> columnNameTypeComboBox, DTVFEditDialogDateTimeController filterController) {
+		return new DynTableFilter<LocalDateTime>(columnNameTypeComboBox.getValue().getDbColumnName(),
 				columnNameTypeComboBox.getValue().getDbColumnType(), filterController.getValue());
 	}
 

@@ -4,8 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import ch.stageconcept.datatraffic.model.DynTableViewFilter;
-import ch.stageconcept.datatraffic.util.DynClassFactory;
+import ch.stageconcept.datatraffic.filter.table.model.DynTableFilter;
+import ch.stageconcept.datatraffic.dbToDynTableView.util.ClassComposer;
 import ch.stageconcept.datatraffic.util.Pair;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
@@ -30,7 +30,7 @@ public class Data<T, U> {
 		this.strategy = strategy;
 	}
 
-	public final void dynClassMemberMasterCreate(DynClassFactory dynClass, String dbColumnName) {
+	public final void dynClassMemberMasterCreate(ClassComposer dynClass, String dbColumnName) {
 		dynClass.addImport(importLitteral, true);
 		dynClass.memberMasterCreate(memberPrimitive, memberType, memberGeneric, dbColumnName);
 	}
@@ -43,21 +43,21 @@ public class Data<T, U> {
 		return filterEditDialogBodyFxmlFileName;
 	}
 
-	public final void addFilterComboBoxData(ObservableList<DynTableViewFilter<?>> columnNameTypeComboBoxData,
+	public final void addFilterComboBoxData(ObservableList<DynTableFilter<?>> columnNameTypeComboBoxData,
 			Pair<String, String> temp) {
-		columnNameTypeComboBoxData.add(new DynTableViewFilter<U>(temp.getFirst(), temp.getSecond()));
+		columnNameTypeComboBoxData.add(new DynTableFilter<U>(temp.getFirst(), temp.getSecond()));
 	}
 
 	public final void setFilterEditDialogDataController(T filterController) {
 		this.filterController = filterController;
 	}
 
-	public final void setControllerFilterValue(DynTableViewFilter<?> selectedDynTableViewFilter) {
-		strategy.setControllerFilterValue(selectedDynTableViewFilter, filterController);
+	public final void setControllerFilterValue(DynTableFilter<?> selectedDynTableFilter) {
+		strategy.setControllerFilterValue(selectedDynTableFilter, filterController);
 	}
 
-	public final DynTableViewFilter<U> createDynTableViewFilter(
-			ComboBox<DynTableViewFilter<?>> columnNameTypeComboBox) {
+	public final DynTableFilter<U> createDynTableViewFilter(
+			ComboBox<DynTableFilter<?>> columnNameTypeComboBox) {
 		return strategy.createDynTableViewFilter(columnNameTypeComboBox, filterController);
 	}
 
