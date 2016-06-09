@@ -9,15 +9,6 @@ import javafx.scene.control.TextField;
 
 public class IntController extends TypeController<Integer> {
 
-	private int value;
-
-	@FXML
-	private TextField filterValue;
-
-    public IntController() {
-        super(true);
-    }
-
     @FXML
 	public void initialize() {
 

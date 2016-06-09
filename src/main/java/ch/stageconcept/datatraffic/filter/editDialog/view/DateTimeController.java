@@ -13,11 +13,6 @@ import javafx.scene.control.Slider;
 
 public class DateTimeController extends TypeController<LocalDateTime> {
 
-	private LocalDateTime value;
-
-	@FXML
-	private Label filterValue;
-
 	@FXML
 	private DatePicker datePicker;
 
@@ -38,10 +33,6 @@ public class DateTimeController extends TypeController<LocalDateTime> {
 
 	@FXML
 	private Label secondLabel;
-
-	public DateTimeController() {
-		super(true);
-	}
 
 	@FXML
 	public void initialize() {

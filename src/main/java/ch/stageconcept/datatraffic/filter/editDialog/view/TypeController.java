@@ -2,6 +2,8 @@ package ch.stageconcept.datatraffic.filter.editDialog.view;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
 
 /**
  * Created by OLDU on 09.06.2016.
@@ -9,10 +11,14 @@ import javafx.beans.property.SimpleBooleanProperty;
  */
 abstract class TypeController<T> {
 
+    protected T value;
     protected BooleanProperty valueEmpty;
 
-    TypeController(boolean value) {
-        this.valueEmpty = new SimpleBooleanProperty(value);
+    @FXML
+    protected TextField filterValue;
+
+    TypeController() {
+        this.valueEmpty = new SimpleBooleanProperty(true);
     }
 
     public abstract void initialize();

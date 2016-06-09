@@ -8,15 +8,6 @@ import javafx.scene.control.TextField;
 
 public class DecimalController extends TypeController<Double> {
 
-	private double value;
-
-	@FXML
-	private TextField filterValue;
-
-	public DecimalController() {
-		super(true);
-	}
-
 	@FXML
 	public void initialize() {
 

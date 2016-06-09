@@ -8,15 +8,6 @@ import javafx.scene.control.TextField;
 
 public class VarCharController extends TypeController<String> {
 
-	private String value;
-
-	@FXML
-	private TextField filterValue;
-
-	public VarCharController() {
-		super(true);
-	}
-
 	@FXML
 	public void initialize() {
 
