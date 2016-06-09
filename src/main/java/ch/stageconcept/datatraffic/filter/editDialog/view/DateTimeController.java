@@ -3,6 +3,7 @@ package ch.stageconcept.datatraffic.filter.editDialog.view;
 import java.time.LocalDateTime;
 
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -10,7 +11,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 
-public class DateTimeController {
+public class DateTimeController extends TypeController<LocalDateTime> {
 
 	private LocalDateTime value;
 
@@ -38,6 +39,10 @@ public class DateTimeController {
 	@FXML
 	private Label secondLabel;
 
+	public DateTimeController() {
+		super(true);
+	}
+
 	@FXML
 	public void initialize() {
 
@@ -47,9 +52,11 @@ public class DateTimeController {
 				if (newValue.isEmpty()) {
 					filterValue.setText("");
 					value = null;
+					valueEmpty.set(true);
 				} else {
 					try {
 						value = LocalDateTime.parse(newValue);
+						valueEmpty.set(false);
 					} catch (NumberFormatException e) {
 						filterValue.setText(oldValue);
 					}

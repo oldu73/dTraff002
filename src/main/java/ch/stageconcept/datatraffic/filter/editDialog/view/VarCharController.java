@@ -1,16 +1,21 @@
 package ch.stageconcept.datatraffic.filter.editDialog.view;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
-public class VarCharController {
+public class VarCharController extends TypeController<String> {
 
 	private String value;
 
 	@FXML
 	private TextField filterValue;
+
+	public VarCharController() {
+		super(true);
+	}
 
 	@FXML
 	public void initialize() {
@@ -21,9 +26,11 @@ public class VarCharController {
 				if (newValue.isEmpty()) {
 					filterValue.setText("");
 					value = "";
+					valueEmpty.set(true);
 				} else {
 					try {
 						value = newValue;
+						valueEmpty.set(false);
 					} catch (NumberFormatException e) {
 						filterValue.setText(oldValue);
 					}

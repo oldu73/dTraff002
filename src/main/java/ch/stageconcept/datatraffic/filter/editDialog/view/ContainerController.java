@@ -6,6 +6,8 @@ import ch.stageconcept.datatraffic.MainApp;
 import ch.stageconcept.datatraffic.filter.table.model.DynTableFilter;
 import ch.stageconcept.datatraffic.util.Pair;
 import ch.stageconcept.datatraffic.util.type.MasterSingleton;
+import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.BooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -96,8 +98,6 @@ public class ContainerController {
 			 */
 
 			initEditDialogBodyLayout(selectedDynTableFilterValue);
-
-			okButton.setDisable(false);
 		});
 	}
 
@@ -117,12 +117,13 @@ public class ContainerController {
 			MasterSingleton.INSTANCE.getDataHashMap().get(selectedDynTableFilter.getDbColumnType())
 					.setFilterEditDialogDataController(loader.getController());
 
+			TypeController<?> bodyController = loader.getController();
+			// OK button disabled until value field isn't empty
+			okButton.disableProperty().bind(bodyController.isValueEmpty());
+
 			try {
 				MasterSingleton.INSTANCE.getDataHashMap().get(selectedDynTableFilter.getDbColumnType())
 						.setControllerFilterValue(selectedDynTableFilter);
-
-				okButton.setDisable(false);
-
 			} catch (NullPointerException npe) {
 				//
 			}
