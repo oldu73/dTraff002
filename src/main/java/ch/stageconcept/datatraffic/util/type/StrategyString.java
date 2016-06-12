@@ -4,11 +4,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import ch.stageconcept.datatraffic.model.DynTableViewFilter;
-import ch.stageconcept.datatraffic.view.DTVFEditDialogVarCharController;
+import ch.stageconcept.datatraffic.filter.table.model.DynTableFilter;
+import ch.stageconcept.datatraffic.filter.editDialog.view.VarCharController;
 import javafx.scene.control.ComboBox;
 
-public class StrategyString implements Strategy<DTVFEditDialogVarCharController, String> {
+public class StrategyString implements Strategy<VarCharController, String> {
 
 	@Override
 	public void addRowData(List<Object> dataRow, ResultSet dbResultSet, int i) throws SQLException {
@@ -16,13 +16,13 @@ public class StrategyString implements Strategy<DTVFEditDialogVarCharController,
 	}
 
 	@Override
-	public void setControllerFilterValue(DynTableViewFilter<?> selectedDynTableViewFilter, DTVFEditDialogVarCharController filterController) {
-		filterController.setFilterValue((String) selectedDynTableViewFilter.getDbColumnValue());
+	public void setControllerFilterValue(DynTableFilter<?> selectedDynTableFilter, VarCharController filterController) {
+		filterController.setFilterValue((String) selectedDynTableFilter.getDbColumnValue());
 	}
 
 	@Override
-	public DynTableViewFilter<String> createDynTableViewFilter(ComboBox<DynTableViewFilter<?>> columnNameTypeComboBox, DTVFEditDialogVarCharController filterController) {
-		return new DynTableViewFilter<String>(columnNameTypeComboBox.getValue().getDbColumnName(),
+	public DynTableFilter<String> createDynTableViewFilter(ComboBox<DynTableFilter<?>> columnNameTypeComboBox, VarCharController filterController) {
+		return new DynTableFilter<String>(columnNameTypeComboBox.getValue().getDbColumnName(),
 				columnNameTypeComboBox.getValue().getDbColumnType(), filterController.getValue());
 	}
 

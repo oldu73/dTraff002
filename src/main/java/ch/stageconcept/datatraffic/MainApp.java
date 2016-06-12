@@ -2,8 +2,8 @@ package ch.stageconcept.datatraffic;
 
 import java.io.IOException;
 
-import ch.stageconcept.datatraffic.view.DynTableViewController;
-import ch.stageconcept.datatraffic.view.DynTableViewFilterController;
+import ch.stageconcept.datatraffic.dbToDynTableView.view.DynTableController;
+import ch.stageconcept.datatraffic.filter.table.view.DynTableFilterController;
 import ch.stageconcept.datatraffic.view.RootLayoutController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +15,11 @@ import javafx.stage.Stage;
 
 public class MainApp extends Application {
 
+	private static final String STAGE_TITLE = "DataTraffic";
+	private static final String DYN_TABLE = "dbToDynTableView/view/DynTable.fxml";
+	private static final String DYN_TABLE_FILTER = "filter/table/view/DynTableFilter.fxml";
+	private static final String CONSOLE = "view/Console.fxml";
+
 	private Stage primaryStage;
 	private BorderPane rootLayout;
 	private AnchorPane dynTableViewAnchorPane;
@@ -23,8 +28,8 @@ public class MainApp extends Application {
 	private FXMLLoader dynTableViewLoader;
 	private FXMLLoader dynTableViewFilterLoader;
 	private FXMLLoader consoleLoader;
-	private DynTableViewController dynTableViewController;
-	private DynTableViewFilterController dynTableViewFilterController;
+	private DynTableController dynTableController;
+	private DynTableFilterController dynTableFilterController;
 
 	public MainApp() {
 		dynTableViewLoader = new FXMLLoader();
@@ -36,19 +41,19 @@ public class MainApp extends Application {
 	public void start(Stage primaryStage) {
 
 		this.primaryStage = primaryStage;
-		this.primaryStage.setTitle("DataTraffic");
+		this.primaryStage.setTitle(STAGE_TITLE);
 
 		initRootLayout();
 
-		initLayout("view/DynTableView.fxml", dynTableViewAnchorPane, dynTableViewLoader);
-		dynTableViewController = dynTableViewLoader.getController();
+		initLayout(DYN_TABLE, dynTableViewAnchorPane, dynTableViewLoader);
+		dynTableController = dynTableViewLoader.getController();
 
-		initLayout("view/DynTableViewFilter.fxml", dynTableViewFilterAnchorPane, dynTableViewFilterLoader);
-		dynTableViewFilterController = dynTableViewFilterLoader.getController();
+		initLayout(DYN_TABLE_FILTER, dynTableViewFilterAnchorPane, dynTableViewFilterLoader);
+		dynTableFilterController = dynTableViewFilterLoader.getController();
 		// Give the controller access to the main app.
-		dynTableViewFilterController.setMainApp(this);
+		dynTableFilterController.setMainApp(this);
 
-		initLayout("view/Console.fxml", consoleAnchorPane, consoleLoader);
+		initLayout(CONSOLE, consoleAnchorPane, consoleLoader);
 	}
 
 	/**
@@ -100,8 +105,8 @@ public class MainApp extends Application {
 		}
 	}
 
-	public DynTableViewController getDynTableViewController() {
-		return dynTableViewController;
+	public DynTableController getDynTableController() {
+		return dynTableController;
 	}
 
 	/**

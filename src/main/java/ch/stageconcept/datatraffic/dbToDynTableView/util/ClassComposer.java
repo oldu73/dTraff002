@@ -1,4 +1,4 @@
-package ch.stageconcept.datatraffic.util;
+package ch.stageconcept.datatraffic.dbToDynTableView.util;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author OLDU
  */
-public final class DynClassFactory {
+public final class ClassComposer {
 
     private final String BEGIN_TAG = "// Begin";
     private final String END_TAG = "// End";
@@ -132,7 +132,7 @@ public final class DynClassFactory {
     private int paramIndex;
     private final List<String> declaredImport;
 
-    public DynClassFactory(String className) {
+    public ClassComposer(String className) {
         this.stringClass = new StringBuffer(CLASS_TEMPLATE);
         this.isConstructorEmpty = true;
         this.constructorIndex = 0;

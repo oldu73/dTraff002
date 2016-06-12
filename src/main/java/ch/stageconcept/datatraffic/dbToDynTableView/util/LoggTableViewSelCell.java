@@ -1,4 +1,4 @@
-package ch.stageconcept.datatraffic.util;
+package ch.stageconcept.datatraffic.dbToDynTableView.util;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;

@@ -1,4 +1,4 @@
-package ch.stageconcept.datatraffic.model;
+package ch.stageconcept.datatraffic.dbToDynTableView.model;
 
 import static ch.stageconcept.datatraffic.util.type.MasterSingleton.*;
 
@@ -29,7 +29,7 @@ import javax.tools.StandardJavaFileManager;
 import javax.tools.StandardLocation;
 import javax.tools.ToolProvider;
 
-import ch.stageconcept.datatraffic.util.DynClassFactory;
+import ch.stageconcept.datatraffic.dbToDynTableView.util.ClassComposer;
 import ch.stageconcept.datatraffic.util.JavaSourceFromString;
 import ch.stageconcept.datatraffic.util.Pair;
 import ch.stageconcept.datatraffic.util.type.MasterSingleton;
@@ -39,9 +39,9 @@ import ch.stageconcept.datatraffic.util.type.MasterSingleton;
  * @author OLDU
  */
 @SuppressWarnings("rawtypes")
-public final class DbToDynTableView extends TableView {
+public final class DynTable extends TableView {
 
-	// DbToDynTableView
+	// dbToDynTableView
 	private final String dbDriver;
 	private final String dbUrl;
 	private final String dbUser;
@@ -52,7 +52,7 @@ public final class DbToDynTableView extends TableView {
 	private final List<String> dbColumnsNames;
 	private final List<String> dbColumnsTypes;
 	private final List<Pair<String, String>> dbColumnsNamesTypesPairList;
-	private DynClassFactory dynClass;
+	private ClassComposer dynClass;
 	private final JavaCompiler compiler;
 	private final String dynClassName;
 	private final String dynClassPath;
@@ -65,8 +65,8 @@ public final class DbToDynTableView extends TableView {
 	private final ObservableList<Object> dataTableViewObjectCollection;
 
 	// Master Constructor
-	public DbToDynTableView(String dbDriver, String dbUrl, String dbUser, String dbPass, String dbSql,
-			String dynClassName, String dynClassPath, String dynClassFileExtension, boolean compileInFile)
+	public DynTable(String dbDriver, String dbUrl, String dbUser, String dbPass, String dbSql,
+					String dynClassName, String dynClassPath, String dynClassFileExtension, boolean compileInFile)
 			throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException,
 			NoSuchMethodException, IllegalArgumentException, InvocationTargetException, IOException {
 
@@ -147,7 +147,7 @@ public final class DbToDynTableView extends TableView {
 	}
 
 	private void dynClassCreateFromDbQuery() throws SQLException {
-		dynClass = new DynClassFactory(dynClassName);
+		dynClass = new ClassComposer(dynClassName);
 
 		for (int i = 0; i < dbResultSet.getMetaData().getColumnCount(); i++) {
 			MasterSingleton.INSTANCE.getDataHashMap().get(dbColumnsTypes.get(i)).dynClassMemberMasterCreate(dynClass,

@@ -1,11 +1,11 @@
-package ch.stageconcept.datatraffic.model;
+package ch.stageconcept.datatraffic.filter.table.model;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class DynTableViewFilter<T> {
+public class DynTableFilter<T> {
 
 	private final StringProperty dbColumnName;
 	private final StringProperty dbColumnType;
@@ -14,7 +14,7 @@ public class DynTableViewFilter<T> {
 	/**
 	 * Default constructor.
 	 */
-	public DynTableViewFilter() {
+	public DynTableFilter() {
 		this(null, null, null);
 	}
 
@@ -25,22 +25,22 @@ public class DynTableViewFilter<T> {
 	 * @param dbColumnType
 	 * @param dbColumnValue
 	 */
-	public DynTableViewFilter(String dbColumnName, String dbColumnType, T dbColumnValue) {
+	public DynTableFilter(String dbColumnName, String dbColumnType, T dbColumnValue) {
 		this.dbColumnName = new SimpleStringProperty(dbColumnName);
 		this.dbColumnType = new SimpleStringProperty(dbColumnType);
 		this.dbColumnValue = new SimpleObjectProperty<T>(dbColumnValue);
 	}
 	
-	public DynTableViewFilter(String dbColumnName, String dbColumnType) {
+	public DynTableFilter(String dbColumnName, String dbColumnType) {
 		this.dbColumnName = new SimpleStringProperty(dbColumnName);
 		this.dbColumnType = new SimpleStringProperty(dbColumnType);
 		this.dbColumnValue = null;
 	}
 	
-	public void setDynTableViewFilterValue(DynTableViewFilter<T> dynTableViewFilter) {
-		this.setDbColumnName(dynTableViewFilter.getDbColumnName());
-		this.setDbColumnType(dynTableViewFilter.getDbColumnType());
-		this.setDbColumnValue(dynTableViewFilter.getDbColumnValue());
+	public void setDynTableViewFilterValue(DynTableFilter<T> dynTableFilter) {
+		this.setDbColumnName(dynTableFilter.getDbColumnName());
+		this.setDbColumnType(dynTableFilter.getDbColumnType());
+		this.setDbColumnValue(dynTableFilter.getDbColumnValue());
 	}
 
 	public String getDbColumnName() {

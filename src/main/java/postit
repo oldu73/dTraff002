@@ -3,17 +3,13 @@
 Must
 ###
 
-- Valeur du filtre quand le champs est laissé vide
-(0 ? ... ou disable bouton OK ? ... a checker, pour l'instant c'est pas terrible !)
+- New Filter Init Date/Time with value @Now
 
 - filter passé en param (pour new/edit), ne sert à rien ??
 
 - selected filter in blue after edit
 
 - double click on filter open edit box
-
-- repackager l'application
-trouver règle pour nomenclature parce que getFilterEditDialogBodyFxmlFileName... c'est un peu lourd ;-)
 
 - Quand on est du côté Java (de la force ;-) refactor VarChar en String
 Voir aussi cohérence de nommage entre Double vs Decimal
