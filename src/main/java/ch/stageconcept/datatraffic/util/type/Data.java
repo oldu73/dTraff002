@@ -12,13 +12,13 @@ import javafx.scene.control.ComboBox;
 
 public class Data<T, U> {
 
-	protected String memberPrimitive;
-	protected String memberType;
-	protected String memberGeneric;
-	protected String importLitteral;
-	protected String filterEditDialogBodyFxmlFileName;
-	protected T filterController;
-	protected Strategy<T, U> strategy;
+	private String memberPrimitive;
+	private String memberType;
+	private String memberGeneric;
+	private String importLitteral;
+	private String filterEditDialogBodyFxmlFileName;
+	private T filterController;
+	private Strategy<T, U> strategy;
 
 	public Data(String memberPrimitive, String memberType, String memberGeneric, String importLitteral,
 			String filterEditDialogBodyFxmlFileName, Strategy<T, U> strategy) {
