@@ -10,6 +10,7 @@ import java.util.List;
  *
  * @author OLDU
  */
+@SuppressWarnings("FieldCanBeLocal")
 public final class ClassComposer {
 
     private final String BEGIN_TAG = "// Begin";
@@ -159,7 +160,7 @@ public final class ClassComposer {
         return this.stringClass.indexOf(value) - 1;
     }
 
-    public void addHeaderComment() {
+    private void addHeaderComment() {
         String timeStamp = new SimpleDateFormat(DATE_TIME_FORMAT).format(new Date());
         this.stringClass.insert(getBeginBlockOffset(HEADER_BEGIN), CT + SP1 + HEADER_COMMENT + SP1 + timeStamp + CR);
     }
@@ -178,7 +179,7 @@ public final class ClassComposer {
         this.stringClass.insert(getEndBlockOffset(CONSTRUCTOR_END), SP1 + CONSTRUCTOR_END_SHORT + this.constructorIndex + CR + CR);
     }
 
-    public void classDeclaration(String name) {
+    private void classDeclaration(String name) {
         // Class
         this.declarationHelper(CLASS_BEGIN, CLASS_DECLARATION_BEGIN, CLASS_END, CLASS_DECLARATION_END, name);
 
