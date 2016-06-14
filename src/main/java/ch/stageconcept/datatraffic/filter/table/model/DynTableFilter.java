@@ -21,14 +21,14 @@ public class DynTableFilter<T> {
 	/**
 	 * Constructor.
 	 *
-	 * @param dbColumnName
-	 * @param dbColumnType
-	 * @param dbColumnValue
+	 * @param dbColumnName name of database column
+	 * @param dbColumnType type of database column
+	 * @param dbColumnValue value of database column
 	 */
 	public DynTableFilter(String dbColumnName, String dbColumnType, T dbColumnValue) {
 		this.dbColumnName = new SimpleStringProperty(dbColumnName);
 		this.dbColumnType = new SimpleStringProperty(dbColumnType);
-		this.dbColumnValue = new SimpleObjectProperty<T>(dbColumnValue);
+		this.dbColumnValue = new SimpleObjectProperty<>(dbColumnValue);
 	}
 	
 	public DynTableFilter(String dbColumnName, String dbColumnType) {
@@ -47,7 +47,7 @@ public class DynTableFilter<T> {
 		return dbColumnName.get();
 	}
 
-	public void setDbColumnName(String dbColumnName) {
+	private void setDbColumnName(String dbColumnName) {
 		this.dbColumnName.set(dbColumnName);
 	}
 
@@ -59,7 +59,7 @@ public class DynTableFilter<T> {
 		return dbColumnType.get();
 	}
 
-	public void setDbColumnType(String dbColumnType) {
+	private void setDbColumnType(String dbColumnType) {
 		this.dbColumnType.set(dbColumnType);
 	}
 
@@ -71,7 +71,7 @@ public class DynTableFilter<T> {
 		return dbColumnValue.get();
 	}
 
-	public void setDbColumnValue(T dbColumnValue) {
+	private void setDbColumnValue(T dbColumnValue) {
 		this.dbColumnValue.set(dbColumnValue);
 	}
 
