@@ -1,15 +1,12 @@
 package ch.stageconcept.datatraffic.filter.editDialog.view;
 
-import java.time.LocalDateTime;
-
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+
+import java.time.LocalDateTime;
 
 public class DateTimeController extends TypeController<LocalDateTime> {
 
@@ -37,6 +34,7 @@ public class DateTimeController extends TypeController<LocalDateTime> {
 	@FXML
 	public void initialize() {
 
+		/*
 		filterValue.textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -54,32 +52,70 @@ public class DateTimeController extends TypeController<LocalDateTime> {
 				}
 			}
 		});
+		 */
+
+		filterValue.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isEmpty()) {
+                filterValue.setText("");
+                value = null;
+                valueEmpty.set(true);
+            } else {
+                try {
+                    value = LocalDateTime.parse(newValue);
+                    valueEmpty.set(false);
+                } catch (NumberFormatException e) {
+                    filterValue.setText(oldValue);
+                }
+            }
+        });
 
 		hourLabel.textProperty().bind(Bindings.format("%02.0f", hourSlider.valueProperty()));
 		minuteLabel.textProperty().bind(Bindings.format("%02.0f", minuteSlider.valueProperty()));
 		secondLabel.textProperty().bind(Bindings.format("%02.0f", secondSlider.valueProperty()));
 
+		/*
 		datePicker.setOnAction(event -> {
 			refreshDateTimeValue();
 		});
+		 */
 
+		datePicker.setOnAction(event -> refreshDateTimeValue());
+
+		/*
 		hourSlider.valueProperty().addListener(new ChangeListener<Number>() {
 			public void changed(ObservableValue<? extends Number> ov, Number old_val, Number new_val) {
 				refreshDateTimeValue();
 			}
 		});
+		 */
 
+		hourSlider.valueProperty().addListener((ov, old_val, new_val) -> {
+            refreshDateTimeValue();
+        });
+
+		/*
 		minuteSlider.valueProperty().addListener(new ChangeListener<Number>() {
 			public void changed(ObservableValue<? extends Number> ov, Number old_val, Number new_val) {
 				refreshDateTimeValue();
 			}
 		});
+		 */
 
+		minuteSlider.valueProperty().addListener((ov, old_val, new_val) -> {
+            refreshDateTimeValue();
+        });
+
+		/*
 		secondSlider.valueProperty().addListener(new ChangeListener<Number>() {
 			public void changed(ObservableValue<? extends Number> ov, Number old_val, Number new_val) {
 				refreshDateTimeValue();
 			}
 		});
+		 */
+
+		secondSlider.valueProperty().addListener((ov, old_val, new_val) -> {
+            refreshDateTimeValue();
+        });
 	}
 
 	private void refreshDateTimeValue() {
