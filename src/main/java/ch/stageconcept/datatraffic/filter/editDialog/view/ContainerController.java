@@ -1,13 +1,9 @@
 package ch.stageconcept.datatraffic.filter.editDialog.view;
 
-import java.io.IOException;
-import java.util.List;
 import ch.stageconcept.datatraffic.MainApp;
 import ch.stageconcept.datatraffic.filter.table.model.DynTableFilter;
 import ch.stageconcept.datatraffic.util.Pair;
 import ch.stageconcept.datatraffic.util.type.MasterSingleton;
-import javafx.beans.binding.BooleanBinding;
-import javafx.beans.property.BooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,6 +14,9 @@ import javafx.scene.control.ListCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
+
+import java.io.IOException;
+import java.util.List;
 
 public class ContainerController {
 
@@ -49,20 +48,18 @@ public class ContainerController {
 		// http://code.makery.ch/blog/javafx-8-event-handling-examples/
 
 		// Define rendering of the list of values in ComboBox drop down.
-		columnNameTypeComboBox.setCellFactory((comboBox) -> {
-			return new ListCell<DynTableFilter<?>>() {
-				@Override
-				protected void updateItem(DynTableFilter<?> item, boolean empty) {
-					super.updateItem(item, empty);
+		columnNameTypeComboBox.setCellFactory((comboBox) -> new ListCell<DynTableFilter<?>>() {
+            @Override
+            protected void updateItem(DynTableFilter<?> item, boolean empty) {
+                super.updateItem(item, empty);
 
-					if (item == null || empty) {
-						setText(null);
-					} else {
-						setText(item.getDbColumnName() + " - " + item.getDbColumnType());
-					}
-				}
-			};
-		});
+                if (item == null || empty) {
+                    setText(null);
+                } else {
+                    setText(item.getDbColumnName() + " - " + item.getDbColumnType());
+                }
+            }
+        });
 
 		// Define rendering of selected value shown in ComboBox.
 		columnNameTypeComboBox.setConverter(new StringConverter<DynTableFilter<?>>() {
@@ -112,7 +109,7 @@ public class ContainerController {
 			// Load layout from fxml file.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource(resourceString));
-			AnchorPane anchorPane = (AnchorPane) loader.load();
+			AnchorPane anchorPane = loader.load();
 
 			MasterSingleton.INSTANCE.getDataHashMap().get(selectedDynTableFilter.getDbColumnType())
 					.setFilterEditDialogDataController(loader.getController());
@@ -148,7 +145,7 @@ public class ContainerController {
 	/**
 	 * Returns true if the user clicked OK, false otherwise.
 	 *
-	 * @return
+	 * @return okClicked value
 	 */
 	public boolean isOkClicked() {
 		return okClicked;
@@ -184,7 +181,7 @@ public class ContainerController {
 	/**
 	 * Sets the stage of this dialog.
 	 *
-	 * @param dialogStage
+	 * @param dialogStage stage of this dialog
 	 */
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
