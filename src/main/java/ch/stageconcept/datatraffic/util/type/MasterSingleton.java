@@ -40,26 +40,20 @@ public enum MasterSingleton {
 	private static final String MEMBER_STRING_TYPE = MEMBER_STRING_PRIMITIVE;
 	private static final String STRING_FILTER_FXML_FILE = FILTER_FXML_FILE_BASE_DIR + "VarChar.fxml";
 
-	// Data
-	private final Data<IntController, Integer> dataInt;
-	private final Data<DecimalController, Double> dataDecimal;
-	private final Data<DateTimeController, LocalDateTime> dataDateTime;
-	private final Data<VarCharController, String> dataString;
-
 	private final DefaultHashMap<String, Data<?, ?>> dataHashMap;
 
-	private MasterSingleton() {
+	MasterSingleton() {
 
-		dataInt = new Data<>(MEMBER_INT_PRIMITIVE, MEMBER_INTEGER_TYPE, null, null, INT_FILTER_FXML_FILE,
+		Data<IntController, Integer> dataInt = new Data<>(MEMBER_INT_PRIMITIVE, MEMBER_INTEGER_TYPE, null, null, INT_FILTER_FXML_FILE,
 				new StrategyInt());
 
-		dataDecimal = new Data<>(MEMBER_DOUBLE_PRIMITIVE, MEMBER_DOUBLE_TYPE, null, null, DOUBLE_FILTER_FXML_FILE,
+		Data<DecimalController, Double> dataDecimal = new Data<>(MEMBER_DOUBLE_PRIMITIVE, MEMBER_DOUBLE_TYPE, null, null, DOUBLE_FILTER_FXML_FILE,
 				new StrategyDecimal());
 
-		dataDateTime = new Data<>(MEMBER_OBJECT_PRIMITIVE, MEMBER_OBJECT_TYPE, MEMBER_OBJECT_LOCALDATETIME,
+		Data<DateTimeController, LocalDateTime> dataDateTime = new Data<>(MEMBER_OBJECT_PRIMITIVE, MEMBER_OBJECT_TYPE, MEMBER_OBJECT_LOCALDATETIME,
 				IMPORT_LITTERAL_LOCALDATETIME, LOCALDATETIME_FILTER_FXML_FILE, new StrategyDateTime());
 
-		dataString = new Data<>(MEMBER_STRING_PRIMITIVE, MEMBER_STRING_TYPE, null, null, STRING_FILTER_FXML_FILE,
+		Data<VarCharController, String> dataString = new Data<>(MEMBER_STRING_PRIMITIVE, MEMBER_STRING_TYPE, null, null, STRING_FILTER_FXML_FILE,
 				new StrategyString());
 
 		dataHashMap = new DefaultHashMap<>(dataString); // String (mysql
