@@ -8,7 +8,7 @@ import ch.stageconcept.datatraffic.filter.table.model.DynTableFilter;
 import ch.stageconcept.datatraffic.filter.editDialog.view.VarCharController;
 import javafx.scene.control.ComboBox;
 
-public class StrategyString implements Strategy<VarCharController, String> {
+class StrategyString implements Strategy<VarCharController, String> {
 
 	@Override
 	public void addRowData(List<Object> dataRow, ResultSet dbResultSet, int i) throws SQLException {
@@ -22,7 +22,7 @@ public class StrategyString implements Strategy<VarCharController, String> {
 
 	@Override
 	public DynTableFilter<String> createDynTableViewFilter(ComboBox<DynTableFilter<?>> columnNameTypeComboBox, VarCharController filterController) {
-		return new DynTableFilter<String>(columnNameTypeComboBox.getValue().getDbColumnName(),
+		return new DynTableFilter<>(columnNameTypeComboBox.getValue().getDbColumnName(),
 				columnNameTypeComboBox.getValue().getDbColumnType(), filterController.getValue());
 	}
 

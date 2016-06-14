@@ -8,7 +8,7 @@ import ch.stageconcept.datatraffic.filter.table.model.DynTableFilter;
 import ch.stageconcept.datatraffic.filter.editDialog.view.DecimalController;
 import javafx.scene.control.ComboBox;
 
-public class StrategyDecimal implements Strategy<DecimalController, Double> {
+class StrategyDecimal implements Strategy<DecimalController, Double> {
 
 	@Override
 	public void addRowData(List<Object> dataRow, ResultSet dbResultSet, int i) throws SQLException {
@@ -22,7 +22,7 @@ public class StrategyDecimal implements Strategy<DecimalController, Double> {
 
 	@Override
 	public DynTableFilter<Double> createDynTableViewFilter(ComboBox<DynTableFilter<?>> columnNameTypeComboBox, DecimalController filterController) {
-		return new DynTableFilter<Double>(columnNameTypeComboBox.getValue().getDbColumnName(),
+		return new DynTableFilter<>(columnNameTypeComboBox.getValue().getDbColumnName(),
 				columnNameTypeComboBox.getValue().getDbColumnType(), filterController.getValue());
 	}
 
