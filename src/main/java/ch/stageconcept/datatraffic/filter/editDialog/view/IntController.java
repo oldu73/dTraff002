@@ -1,11 +1,6 @@
 package ch.stageconcept.datatraffic.filter.editDialog.view;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
 
 public class IntController extends TypeController<Integer> {
 
@@ -13,6 +8,8 @@ public class IntController extends TypeController<Integer> {
 	public void initialize() {
 
 		// http://stackoverflow.com/questions/7555564/what-is-the-recommended-way-to-make-a-numeric-textfield-in-javafx
+
+		/*
 		filterValue.textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -30,6 +27,22 @@ public class IntController extends TypeController<Integer> {
 				}
 			}
 		});
+		 */
+
+		filterValue.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isEmpty()) {
+                filterValue.setText("");
+                value = 0;
+                valueEmpty.set(true);
+            } else {
+                try {
+                    value = Integer.parseInt(newValue);
+                    valueEmpty.set(false);
+                } catch (NumberFormatException e) {
+                    filterValue.setText(oldValue);
+                }
+            }
+        });
 
 	}
 

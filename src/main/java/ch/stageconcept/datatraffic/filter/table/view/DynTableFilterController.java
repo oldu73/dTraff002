@@ -28,9 +28,6 @@ public class DynTableFilterController {
 	private MainApp mainApp;
 
 	private ContainerController filterEditDialogController;
-	
-	@SuppressWarnings("unused")
-	private LoggTableViewSelCell loggTableViewSelCell;
 
 	/**
 	 * The data as an observable list of DynTableFilter.
@@ -58,7 +55,7 @@ public class DynTableFilterController {
 	/**
 	 * Is called by the main application to give a reference back to itself.
 	 *
-	 * @param mainApp
+	 * @param mainApp main application
 	 */
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
@@ -83,7 +80,7 @@ public class DynTableFilterController {
 		dynTableViewFilterTable.setItems(dynTableFilterData);
 		
 		if (ENABLE_LOGG_TABLEVIEW_SELECTED_CELL) {
-			loggTableViewSelCell = new LoggTableViewSelCell(dynTableViewFilterTable);
+			LoggTableViewSelCell loggTableViewSelCell = new LoggTableViewSelCell(dynTableViewFilterTable);
 		}
 
 		dynTableViewFilterTable.getSelectionModel().selectedItemProperty()
@@ -169,7 +166,7 @@ public class DynTableFilterController {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("filter/editDialog/view/Container.fxml"));
-			AnchorPane anchorPane = (AnchorPane) loader.load();
+			AnchorPane anchorPane = loader.load();
 
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();

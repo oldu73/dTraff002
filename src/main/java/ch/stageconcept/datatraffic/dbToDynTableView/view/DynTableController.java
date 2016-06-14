@@ -13,6 +13,7 @@ import ch.stageconcept.datatraffic.view.RootLayoutController;
 import javafx.fxml.FXML;
 import javafx.scene.layout.StackPane;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class DynTableController {
 
 	// DB

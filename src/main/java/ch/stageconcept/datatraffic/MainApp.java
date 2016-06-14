@@ -21,7 +21,6 @@ public class MainApp extends Application {
 	private static final String CONSOLE = "view/Console.fxml";
 
 	private Stage primaryStage;
-	private BorderPane rootLayout;
 	private AnchorPane dynTableViewAnchorPane;
 	private AnchorPane dynTableViewFilterAnchorPane;
 	private AnchorPane consoleAnchorPane;
@@ -29,7 +28,6 @@ public class MainApp extends Application {
 	private FXMLLoader dynTableViewFilterLoader;
 	private FXMLLoader consoleLoader;
 	private DynTableController dynTableController;
-	private DynTableFilterController dynTableFilterController;
 
 	public MainApp() {
 		dynTableViewLoader = new FXMLLoader();
@@ -49,7 +47,7 @@ public class MainApp extends Application {
 		dynTableController = dynTableViewLoader.getController();
 
 		initLayout(DYN_TABLE_FILTER, dynTableViewFilterAnchorPane, dynTableViewFilterLoader);
-		dynTableFilterController = dynTableViewFilterLoader.getController();
+		DynTableFilterController dynTableFilterController = dynTableViewFilterLoader.getController();
 		// Give the controller access to the main app.
 		dynTableFilterController.setMainApp(this);
 
@@ -59,14 +57,14 @@ public class MainApp extends Application {
 	/**
 	 * Initializes the root layout.
 	 */
-	public void initRootLayout() {
+	private void initRootLayout() {
 		try {
 			// Load root layout from fxml file.
 			FXMLLoader loader = new FXMLLoader();
 			// INFO: http://stackoverflow.com/questions/22000423/javafx-and-maven-nullpointerexception-location-is-required
 			// include fxml resources in maven pom file
 			loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
-			rootLayout = (BorderPane) loader.load();
+			BorderPane rootLayout = loader.load();
 
 			// Show the scene containing the root layout.
 			Scene scene = new Scene(rootLayout);
@@ -90,7 +88,7 @@ public class MainApp extends Application {
 		try {
 			// Load layout from fxml file.
 			loader.setLocation(MainApp.class.getResource(fxmlFileName));
-			StackPane stackPane = (StackPane) loader.load();
+			StackPane stackPane = loader.load();
 
 			// http://stackoverflow.com/questions/15223812/javafx-panel-inside-panel-auto-resizing
 			AnchorPane.setTopAnchor(stackPane, 0.0);
@@ -112,7 +110,6 @@ public class MainApp extends Application {
 	/**
 	 * Returns the main stage.
 	 *
-	 * @return
 	 */
 	public Stage getPrimaryStage() {
 		return primaryStage;

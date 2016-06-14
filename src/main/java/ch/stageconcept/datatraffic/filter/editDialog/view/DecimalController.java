@@ -1,17 +1,14 @@
 package ch.stageconcept.datatraffic.filter.editDialog.view;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
 
 public class DecimalController extends TypeController<Double> {
 
 	@FXML
 	public void initialize() {
 
-		filterValue.textProperty().addListener(new ChangeListener<String>() {
+		/*
+			filterValue.textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				if (newValue.isEmpty()) {
@@ -28,6 +25,22 @@ public class DecimalController extends TypeController<Double> {
 				}
 			}
 		});
+		 */
+
+		filterValue.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isEmpty()) {
+                filterValue.setText("");
+                value = 0.0;
+                valueEmpty.set(true);
+            } else {
+                try {
+                    value = Double.parseDouble(newValue);
+                    valueEmpty.set(false);
+                } catch (NumberFormatException e) {
+                    filterValue.setText(oldValue);
+                }
+            }
+        });
 
 	}
 

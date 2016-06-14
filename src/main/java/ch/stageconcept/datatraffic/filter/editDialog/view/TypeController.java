@@ -12,7 +12,7 @@ import javafx.scene.control.TextField;
 abstract class TypeController<T> {
 
     protected T value;
-    protected BooleanProperty valueEmpty;
+    BooleanProperty valueEmpty;
 
     @FXML
     protected TextField filterValue;
@@ -25,7 +25,7 @@ abstract class TypeController<T> {
 
     public abstract T getValue();
 
-    public BooleanProperty isValueEmpty() {
+    BooleanProperty isValueEmpty() {
         return valueEmpty;
     }
 
