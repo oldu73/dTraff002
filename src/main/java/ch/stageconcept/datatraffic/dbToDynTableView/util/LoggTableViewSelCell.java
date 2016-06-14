@@ -1,24 +1,18 @@
 package ch.stageconcept.datatraffic.dbToDynTableView.util;
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
-
-import ch.stageconcept.datatraffic.view.ConsoleController;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
+import org.apache.log4j.Logger;
 
 public final class LoggTableViewSelCell {
 
 	private TableView<?> tableView;
-	ObservableList<?> selectedCells;
+	private ObservableList<?> selectedCells;
 	private final ListChangeListener<Object> listChangeListener;
-	final ContextMenu contextMenu = new ContextMenu();
 	private Logger logger = Logger.getLogger(this.getClass());
 
 	public LoggTableViewSelCell(TableView<?> tableView) {
@@ -33,9 +27,7 @@ public final class LoggTableViewSelCell {
 				Object val = tablePosition.getTableColumn().getCellData(tablePosition.getRow());
 				logger.info("Selected Cell (Row: " + tablePosition.getRow() + " / Col: "
 						+ tablePosition.getColumn() + ") Value: " + val + " / " + val.getClass());
-			} catch (IndexOutOfBoundsException e) {
-				//
-			} catch (NullPointerException e) {
+			} catch (IndexOutOfBoundsException | NullPointerException e) {
 				//
 			}
 		};
@@ -46,6 +38,7 @@ public final class LoggTableViewSelCell {
 		MenuItem item2 = new MenuItem(loggerBaseText + "OFF?");
 		item2.setDisable(true);
 
+		/*
 		item1.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				set();
@@ -53,7 +46,15 @@ public final class LoggTableViewSelCell {
 				item2.setDisable(false);
 			}
 		});
+		 */
 
+		item1.setOnAction(e -> {
+            set();
+            item1.setDisable(true);
+            item2.setDisable(false);
+        });
+
+		/*
 		item2.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				reset();
@@ -61,7 +62,15 @@ public final class LoggTableViewSelCell {
 				item2.setDisable(true);
 			}
 		});
+		 */
 
+		item2.setOnAction(e -> {
+            reset();
+            item1.setDisable(false);
+            item2.setDisable(true);
+        });
+
+		ContextMenu contextMenu = new ContextMenu();
 		contextMenu.getItems().addAll(item1, item2);
 
 		tableView.setContextMenu(contextMenu);
@@ -75,7 +84,7 @@ public final class LoggTableViewSelCell {
 		selectedCells.addListener(listChangeListener);
 	}
 
-	public void reset() {
+	private void reset() {
 		tableView.getSelectionModel().setCellSelectionEnabled(false);
 		selectedCells.removeListener(listChangeListener);
 	}
