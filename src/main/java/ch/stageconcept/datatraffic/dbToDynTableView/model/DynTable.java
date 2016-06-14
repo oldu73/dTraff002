@@ -1,7 +1,16 @@
 package ch.stageconcept.datatraffic.dbToDynTableView.model;
 
-import static ch.stageconcept.datatraffic.util.type.MasterSingleton.*;
+import ch.stageconcept.datatraffic.dbToDynTableView.util.ClassComposer;
+import ch.stageconcept.datatraffic.util.JavaSourceFromString;
+import ch.stageconcept.datatraffic.util.Pair;
+import ch.stageconcept.datatraffic.util.type.MasterSingleton;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
+import javax.tools.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,25 +23,10 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javax.tools.Diagnostic;
-import javax.tools.DiagnosticCollector;
-import javax.tools.JavaCompiler;
-import javax.tools.JavaFileObject;
-import javax.tools.StandardJavaFileManager;
-import javax.tools.StandardLocation;
-import javax.tools.ToolProvider;
 
-import ch.stageconcept.datatraffic.dbToDynTableView.util.ClassComposer;
-import ch.stageconcept.datatraffic.util.JavaSourceFromString;
-import ch.stageconcept.datatraffic.util.Pair;
-import ch.stageconcept.datatraffic.util.type.MasterSingleton;
+import static ch.stageconcept.datatraffic.util.type.MasterSingleton.DB_TYPE_DATETIME;
 
 /**
  *
@@ -57,11 +51,9 @@ public final class DynTable extends TableView {
 	private final String dynClassName;
 	private final String dynClassPath;
 	private final String dynClassFileExtension;
-	private File dynClassfRoot;
-	private File dynClassFile;
-	private Class dynClassCompiled;
+    private Class dynClassCompiled;
 	private Constructor dynClassParamListConstructor;
-	List<Object> dataDynClassObjectCollection;
+	private List<Object> dataDynClassObjectCollection;
 	private final ObservableList<Object> dataTableViewObjectCollection;
 
 	// Master Constructor
@@ -83,7 +75,7 @@ public final class DynTable extends TableView {
 
 		dbColumnsNames = new ArrayList<>();
 		dbColumnsTypes = new ArrayList<>();
-		dbColumnsNamesTypesPairList = new ArrayList<Pair<String, String>>();
+		dbColumnsNamesTypesPairList = new ArrayList<>();
 		dataTableViewObjectCollection = FXCollections.observableArrayList();
 
 		compiler = ToolProvider.getSystemJavaCompiler();
@@ -128,7 +120,7 @@ public final class DynTable extends TableView {
 			dbColumnsNames.add(name);
 			dbColumnsTypes.add(type);
 
-			Pair<String, String> nameTypePair = new Pair<String, String>(name, type);
+			Pair<String, String> nameTypePair = new Pair<>(name, type);
 
 			dbColumnsNamesTypesPairList.add(nameTypePair);
 		}
@@ -157,22 +149,28 @@ public final class DynTable extends TableView {
 	}
 
 	private void dynClassCompileInFileAndLoad() throws IOException, ClassNotFoundException {
-		// Write class to file
-		dynClassfRoot = new File(dynClassPath);
-		// Save source in .fileExtension (.java) file.
-		dynClassFile = new File(dynClassfRoot, dynClassName + dynClassFileExtension);
 
-		try (FileWriter writer = new FileWriter(dynClassFile)) {
+		// Write class to file
+
+		File dynClassfRoot;
+		dynClassfRoot = new File(dynClassPath);
+
+		// Save source in .fileExtension (.java) file.
+
+        File dynClassFile;
+        dynClassFile = new File(dynClassfRoot, dynClassName + dynClassFileExtension);
+
+        try (FileWriter writer = new FileWriter(dynClassFile)) {
 			// create the source
 			writer.write(dynClass.getStringClass().toString());
 		}
 
 		// Compile class
 		try (StandardJavaFileManager fileManager = compiler.getStandardFileManager(null, null, null)) {
-			fileManager.setLocation(StandardLocation.CLASS_OUTPUT, Arrays.asList(new File(dynClassPath)));
+			fileManager.setLocation(StandardLocation.CLASS_OUTPUT, Collections.singletonList(new File(dynClassPath)));
 
 			compiler.getTask(null, fileManager, null, null, null,
-					fileManager.getJavaFileObjectsFromFiles(Arrays.asList(dynClassFile))).call();
+					fileManager.getJavaFileObjectsFromFiles(Collections.singletonList(dynClassFile))).call();
 		}
 
 		// Load class
@@ -189,7 +187,7 @@ public final class DynTable extends TableView {
 
 		JavaFileObject file = new JavaSourceFromString(dynClassName, dynClass.getStringClass().toString());
 
-		Iterable<? extends JavaFileObject> compilationUnits = Arrays.asList(file);
+		Iterable<? extends JavaFileObject> compilationUnits = Collections.singletonList(file);
 		JavaCompiler.CompilationTask task = compiler.getTask(null, null, diagnostics, null, null, compilationUnits);
 
 		boolean success = task.call();
